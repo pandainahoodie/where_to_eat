@@ -216,6 +216,7 @@ addRestaurantBtn.addEventListener("click", async () => {
   await addDoc(collection(db, "rooms", currentRoomCode, "restaurants"), {
     name,
     createdAt: Date.now(),
+    addedBy: deviceId,
   });
 
   restaurantInput.value = "";
@@ -382,12 +383,18 @@ function listenForRestaurants() {
       restaurantList.innerHTML = "";
 
       snapshot.forEach((docSnap) => {
-        const restaurant = docSnap.data().name;
+        const data = docSnap.data();
+
+        const restaurant = data.name;
 
         restaurants.push({
           id: docSnap.id,
           name: restaurant,
         });
+
+        if (!isHost && data.addedBy !== deviceId) {
+          return;
+        }
 
         const li = document.createElement("li");
 
