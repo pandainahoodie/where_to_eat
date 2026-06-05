@@ -51,7 +51,7 @@ const goJoinRoomBtn = document.getElementById("go-join-room");
 const backFromCreateBtn = document.getElementById("back-from-create");
 const backFromJoinBtn = document.getElementById("back-from-join");
 
-let restaurants = [];
+let allRestaurants = [];
 let votes = {};
 
 let currentIndex = 0;
@@ -199,7 +199,7 @@ addRestaurantBtn.addEventListener("click", async () => {
 
   if (!name) return;
 
-  const alreadyExists = restaurants.some(
+  const alreadyExists = allRestaurants.some(
     (restaurant) => restaurant.name.toLowerCase() === name.toLowerCase(),
   );
 
@@ -225,7 +225,7 @@ addRestaurantBtn.addEventListener("click", async () => {
 startVotingBtn.addEventListener("click", async () => {
   if (!isHost) return;
 
-  if (restaurants.length === 0) {
+  if (allRestaurants.length === 0) {
     alert("Add at least one restaurant");
     return;
   }
@@ -236,19 +236,19 @@ startVotingBtn.addEventListener("click", async () => {
 });
 
 function showRestaurant() {
-  if (!restaurants.length) return;
+  if (!allRestaurants || allRestaurants.length === 0) return;
 
-  voteRestaurant.textContent = restaurants[currentIndex].name;
+  voteRestaurant.textContent = allRestaurants[currentIndex].name;
 }
 
 async function vote(liked) {
-  const restaurant = restaurants[currentIndex].name;
+  const restaurant = allRestaurants[currentIndex].name;
 
   votes[restaurant] = liked;
 
   currentIndex++;
 
-  if (currentIndex >= restaurants.length) {
+  if (currentIndex >= allRestaurants.length) {
     await finishVoting();
     return;
   }
@@ -299,7 +299,7 @@ async function checkIfVotingFinished() {
 
   const voteCount = votesSnapshot.size;
 
-  if (voteCount < participantCount) {
+  if ((voteCount || 0) < (participantCount || 0)) {
     return;
   }
 
@@ -378,54 +378,57 @@ function listenForRestaurants() {
   onSnapshot(
     collection(db, "rooms", currentRoomCode, "restaurants"),
     (snapshot) => {
-      restaurants = [];
-
-      restaurantList.innerHTML = "";
+      allRestaurants = [];
 
       snapshot.forEach((docSnap) => {
         const data = docSnap.data();
 
-        const restaurant = data.name;
-
-        restaurants.push({
+        allRestaurants.push({
           id: docSnap.id,
-          name: restaurant,
+          name: data.name,
+          addedBy: data.addedBy,
         });
-
-        if (!isHost && data.addedBy !== deviceId) {
-          return;
-        }
-
-        const li = document.createElement("li");
-
-        li.style.display = "flex";
-        li.style.justifyContent = "space-between";
-        li.style.alignItems = "center";
-
-        const nameSpan = document.createElement("span");
-        nameSpan.textContent = restaurant;
-
-        li.appendChild(nameSpan);
-
-        if (isHost) {
-          const deleteBtn = document.createElement("button");
-
-          deleteBtn.className = "delete-btn";
-          deleteBtn.textContent = "✕";
-
-          deleteBtn.addEventListener("click", async () => {
-            await deleteDoc(
-              doc(db, "rooms", currentRoomCode, "restaurants", docSnap.id),
-            );
-          });
-
-          li.appendChild(deleteBtn);
-        }
-
-        restaurantList.appendChild(li);
       });
+
+      renderLobbyRestaurants();
     },
   );
+}
+
+function renderLobbyRestaurants() {
+  restaurantList.innerHTML = "";
+
+  allRestaurants.forEach((r) => {
+    if (!isHost && r.addedBy !== deviceId) return;
+
+    const li = document.createElement("li");
+
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = r.name;
+
+    li.appendChild(nameSpan);
+
+    if (isHost) {
+      const deleteBtn = document.createElement("button");
+
+      deleteBtn.className = "delete-btn";
+      deleteBtn.textContent = "✕";
+
+      deleteBtn.addEventListener("click", async () => {
+        await deleteDoc(
+          doc(db, "rooms", currentRoomCode, "restaurants", r.id),
+        );
+      });
+
+      li.appendChild(deleteBtn);
+    }
+
+    restaurantList.appendChild(li);
+  });
 }
 
 function listenForVoteCounts() {
