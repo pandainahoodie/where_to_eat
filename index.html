@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>damn, idk bro</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <!-- <h1>Where Should We Eat?</h1> -->
+            <div id="home-screen">
+                <p class="subtitle"> Create a room and let everyone vote on where to eat. </p>
+                <button id="go-create-room"> Create Room </button>
+                <button id="go-join-room"> Join Room </button>
+            </div>
+            <div id="create-screen" class="hidden">
+                <h2>Create Room</h2>
+                <input id="create-username" type="text" placeholder="Your name" />
+                <button id="create-room"> Continue </button>
+                <button id="back-from-create"> Back </button>
+            </div>
+            <div id="join-screen" class="hidden">
+                <h2>Join Room</h2>
+                <input id="join-username" type="text" placeholder="Your name" />
+                <input id="join-code" type="text" placeholder="Room Code" />
+                <button id="join-room"> Join Room </button>
+                <button id="back-from-join"> Back </button>
+            </div>
+            <div id="room-screen" class="hidden">
+                <div class="room-code-card">
+                    <p>Share this code with friends</p>
+                    <div id="room-code" class="room-code"></div>
+                </div>
+                <h3>Restaurant Choices</h3>
+                <div class="restaurant-input">
+                    <input id="restaurant-name" type="text" placeholder="Restaurant name" />
+                    <button id="add-restaurant"> Add </button>
+                </div>
+                <ul id="restaurant-list"></ul>
+                <button id="start-voting"> Start Voting </button>
+            </div>
+            <div id="vote-screen" class="hidden">
+                <h2 id="vote-restaurant"></h2>
+                <div class="vote-buttons">
+                    <button id="pass-btn"> 👎 Pass </button>
+                    <button id="like-btn"> 👍 Eat Here </button>
+                </div>
+            </div>
+            <div id="waiting-screen" class="hidden">
+                <h2>✅ Locked In</h2>
+                <p> Waiting for everyone to finish voting... </p>
+                <h3 id="waiting-count">
+                    0 / 0 finished
+                </h3>
+            </div>
+            <div id="result-screen" class="hidden">
+                <h2>🎉 Winner</h2>
+                <h1 id="winner-name"></h1>
+                <div id="standings-list"></div>
+            </div>
+        </div>
+        <script type="module" src="script.js"></script>
+    </body>
+</html>

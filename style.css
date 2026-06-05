@@ -1,0 +1,227 @@
+#home-screen,
+#create-screen,
+#join-screen,
+#room-screen,
+#vote-screen,
+#result-screen {
+  margin-top: 32px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-bottom: 12px;
+  margin-top: 24px;
+  text-align: left;
+  color: #ddd;
+}
+
+.subtitle {
+  color: #999;
+  margin-top: 12px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.room-code-card {
+  margin-bottom: 24px;
+}
+
+.room-code-card p {
+  color: #999;
+  margin-bottom: 8px;
+}
+
+#restaurant-list {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+#vote-restaurant {
+  margin-bottom: 24px;
+  min-height: 60px;
+}
+
+
+#winner-name {
+  margin-top: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #121212;
+  color: white;
+  font-family: Inter, sans-serif;
+
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+
+  padding: 24px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #b3b3b3;
+  margin-bottom: 32px;
+}
+
+.hidden {
+  display: none;
+}
+
+input {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: #1f1f1f;
+  color: white;
+
+  margin-bottom: 12px;
+
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+
+  border: none;
+  border-radius: 14px;
+
+  padding: 14px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  margin-bottom: 12px;
+
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+#create-room,
+#go-create-room {
+  background: #ff7b54;
+  color: white;
+}
+
+#join-room,
+#go-join-room {
+  background: #2d2d2d;
+  color: white;
+}
+
+#back-from-create,
+#back-from-join {
+  background: transparent;
+  color: #999;
+}
+
+.restaurant-input {
+  display: flex;
+  gap: 8px;
+}
+
+.restaurant-input button {
+  width: auto;
+  padding: 14px 20px;
+}
+
+ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+li {
+  background: #1f1f1f;
+
+  padding: 14px;
+  border-radius: 12px;
+
+  margin-bottom: 8px;
+}
+
+.vote-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.vote-buttons button {
+  flex: 1;
+}
+
+.room-code-card {
+  background: #1f1f1f;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.room-code {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+#standings-list {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.standing-item {
+  background: #1f1f1f;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.delete-btn {
+  width: 32px !important;
+  height: 32px;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #2d2d2d;
+  color: #ff6b6b;
+
+  border-radius: 50%;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  flex-shrink: 0;
+}
