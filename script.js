@@ -20,6 +20,13 @@ const restaurantInput = document.getElementById("restaurant-name");
 const addRestaurantBtn = document.getElementById("add-restaurant");
 const restaurantList = document.getElementById("restaurant-list");
 
+restaurantInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    addRestaurantBtn.click();
+  }
+});
+
 const startVotingBtn = document.getElementById("start-voting");
 
 const voteScreen = document.getElementById("vote-screen");
@@ -220,6 +227,7 @@ addRestaurantBtn.addEventListener("click", async () => {
   });
 
   restaurantInput.value = "";
+  restaurantInput.focus();
 });
 
 startVotingBtn.addEventListener("click", async () => {
